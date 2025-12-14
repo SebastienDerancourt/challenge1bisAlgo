@@ -1,13 +1,18 @@
-all: parenthesages
+CC = gcc
+CCFLAGS = -Wall
 
-parenthesages: parenthesages.o mymatrix.o
-	gcc -o parenthesages parenthesages.o mymatrix.o
+main: parenthesages
+	
+	
+mymatrix.o:	mymatrix.c mymatrix.h
+	${CC} ${CCFLAGS} -c mymatrix.c
+	
+parenthesages.o:	parenthesages.c
+		${CC} ${CCFLAGS} -c parenthesages.c
 
-parenthesages.o: parenthesages.c mymatrix.h
-	gcc -c parenthesages.c -Wall
-
-mymatrix.o: mymatrix.c mymatrix.h
-	gcc -c mymatrix.c -Wall
-
+parenthesages:	mymatrix.o parenthesages.o
+	${CC} ${CCFLAGS} parenthesages.o mymatrix.o -o parenthesages
+		
 clean:
-	rm -f *.o parenthesages
+	rm *.o ; rm parenthesages
+	
